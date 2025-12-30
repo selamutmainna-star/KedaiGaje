@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "type": "Makanan",
+        "name": "Nasi Goreng",
+        "price": "15000",
+        "status": "Habis",
+        "img": "nasgor.png"
+    },
+    {
+        "id": 2,
+        "type": "Makanan",
+        "name": "Mie Goreng",
+        "price": "15000",
+        "status": "Habis",
+        "img": "mie.png"
+    },
+    {
+        "id": 1763559977,
+        "type": "Makanan",
+        "name": "Nasi Ayam Lalap",
+        "price": "20000",
+        "img": "lalap.png",
+        "status": "Habis"
+    },
+    {
+        "id": 1763560067,
+        "type": "Makanan",
+        "name": "Nasi Ayam Penyet",
+        "price": "30000",
+        "img": "penyet.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560099,
+        "type": "Makanan",
+        "name": "Nasi Rendang Sapi",
+        "price": "23000",
+        "img": "rendang.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560247,
+        "type": "Makanan",
+        "name": "Nasi Sambal Tongkol",
+        "price": 23000,
+        "img": "sambal.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560284,
+        "type": "Makanan",
+        "name": "Siomay",
+        "price": 12000,
+        "img": "siomay.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560307,
+        "type": "Makanan",
+        "name": "Batagor",
+        "price": 12000,
+        "img": "batagor.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560437,
+        "type": "Makanan",
+        "name": "Pentol Goreng",
+        "price": "17000",
+        "img": "pentol.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560471,
+        "type": "Makanan",
+        "name": "Tahu Bakso",
+        "price": 15000,
+        "img": "tahu.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560516,
+        "type": "Minuman",
+        "name": "Es Teh Manis ",
+        "price": "5000",
+        "img": "teh.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560550,
+        "type": "Minuman",
+        "name": "Kopi Hitam",
+        "price": "5000",
+        "img": "kopii.jpg",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560590,
+        "type": "Minuman",
+        "name": "Es Kopi Susu",
+        "price": "6000",
+        "img": "kopisusu.jpg",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560630,
+        "type": "Minuman",
+        "name": "Es Jeruk Peras",
+        "price": "8000",
+        "img": "jer.jpg",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560659,
+        "type": "Minuman",
+        "name": "Squash Melon",
+        "price": "12000",
+        "img": "sm.jpg",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560701,
+        "type": "Minuman",
+        "name": "Milkshake RedValvet",
+        "price": "12000",
+        "img": "red.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560721,
+        "type": "Makanan",
+        "name": "Milkshake Coklat",
+        "price": 12000,
+        "img": "coklat.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560758,
+        "type": "Minuman",
+        "name": "Milkshake Strawberry",
+        "price": 12000,
+        "img": "str.png",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560778,
+        "type": "Minuman",
+        "name": "Milkshake Taro",
+        "price": "12000",
+        "img": "taroo.webp",
+        "status": "Tersedia"
+    },
+    {
+        "id": 1763560889,
+        "type": "Minuman",
+        "name": "Milkshake Milo",
+        "price": "12000",
+        "img": "miloo.jpg",
+        "status": "Tersedia"
+    }
+]

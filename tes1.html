@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kedai Gaje - Welcome</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================= GLOBAL RESET ================= */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root{
+      --accent:#007bff;
+      --accent-2:#4aaaff;
+      --glass: rgba(255,255,255,0.55);
+      --glass-strong: rgba(255,255,255,0.75);
+      --card-shadow: 0 10px 30px rgba(7,20,40,0.08);
+      --radius:18px;
+    }
+    html,body{ height:100%; }
+    body{
+      font-family:'Poppins',sans-serif;
+      overflow-x:hidden;
+      background: linear-gradient(135deg, #3c60ff, #83c1f1, #71f8ef, #4af575);
+      background-size: 400% 400%;
+      animation: gradientMove 18s ease infinite;
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    @keyframes gradientMove{
+      0%{ background-position:0% 50% }
+      50%{ background-position:100% 50% }
+      100%{ background-position:0% 50% }
+    }
+
+    /* ================= FOOD EMOJI LAYER ================= */
+    #foodLayer{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .food{
+      position:absolute;
+      top:-50px;
+      font-size:32px;
+      animation-name:foodFall;
+      animation-timing-function:linear;
+      animation-iteration-count:infinite;
+      pointer-events:none;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.12));
+      transform-origin:center;
+    }
+    @keyframes foodFall {
+      0% { transform: translateY(-80px) rotate(0deg); opacity:0; }
+      10% { opacity:1; }
+      100% { transform: translateY(120vh) rotate(360deg); opacity:0.9; }
+    }
+
+    /* ================= LOADER ================= */
+    #loader{
+      position:fixed; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+      display:flex; align-items:center; justify-content:center; z-index:10000;
+      transition:opacity .6s ease, visibility .6s;
+    }
+    #loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+    .loader-wrap{
+      display:flex; flex-direction:column; align-items:center; gap:18px;
+    }
+    .circle{
+      width:64px; height:64px; border-radius:50%;
+      border:6px solid var(--accent-2);
+      border-top-color:transparent;
+      animation:spin 0.9s linear infinite;
+      box-shadow: 0 8px 30px rgba(74,170,255,0.16);
+    }
+    .loader-text{ font-weight:600; color:#0b2545; letter-spacing:0.4px; }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+
+    /* ================= NAVBAR ================= */
+    nav{
+      position:fixed; top:16px; left:50%; transform:translateX(-50%);
+      width:92%; max-width:1200px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.6));
+      backdrop-filter: blur(10px) saturate(1.05);
+      padding:12px 18px; border-radius:999px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; z-index:999; box-shadow:0 8px 30px rgba(10,20,50,0.09);
+      transition: transform .35s ease, box-shadow .35s;
+    }
+    nav:hover{ transform:translateX(-50%) translateY(-4px); box-shadow:0 18px 40px rgba(10,20,50,0.12); }
+    nav .brand{ display:flex; gap:12px; align-items:center; font-weight:800; color:var(--accent); }
+    nav .brand img{ width:52px; height:52px; border-radius:12px; object-fit:cover; box-shadow:0 8px 22px rgba(0,0,0,0.12); }
+    nav ul{ list-style:none; display:flex; gap:20px; align-items:center; }
+    nav a{ text-decoration:none; color:var(--accent); font-weight:600; transition:.2s; display:inline-flex; gap:8px; align-items:center; }
+    nav a:hover{ transform:translateY(-3px); color:#004bb8; }
+
+    /* ================= CONTAINER ================= */
+    .container{ max-width:1100px; margin:0 auto; padding:120px 20px 40px; position:relative; z-index:5; }
+
+    /* ================= CARD BASE ================= */
+    .card{
+      background: var(--glass);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--card-shadow);
+      transition: transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s;
+      overflow:hidden;
+      backdrop-filter:blur(6px);
+    }
+    .card:hover{ transform:translateY(-8px); box-shadow: 0 24px 50px rgba(7,20,40,0.12); }
+
+    /* ================= HERO ================= */
+    .hero{
+      display:flex; gap:32px; align-items:center; flex-wrap:wrap;
+      padding:34px; border-radius:26px;
+    }
+    .hero-left{ flex:1; min-width:300px; transform: translateY(-35px); }
+    .hero h1{ font-size:34px; color:#022244; line-height:1.05; margin-bottom:12px; }
+    .hero h1 .accent{ color:var(--accent-2); }
+    .hero p{ color:#102334; opacity:0.95; line-height:1.7; font-size:15px; margin-bottom:18px; }
+    .hero-cta{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+
+    /* typing effect */
+    .typing{ display:inline-block; border-right:2px solid rgba(2,34,68,0.18); padding-right:6px; animation:caret 1s steps(1) infinite; font-weight:700; color:#053167; }
+    @keyframes caret{ 50%{ border-color: transparent; } }
+
+    /* hero image */
+    .hero-right{ flex:1; min-width:300px; }
+    .hero-right img{ width:100%; border-radius:18px; box-shadow: 0 30px 60px rgba(6,18,40,0.12); transform-origin:center; transition:transform .6s cubic-bezier(.2,.9,.3,1); }
+    .hero-right img:hover{ transform:scale(1.03) rotate(-1.2deg); }
+
+    /* shake effect for main button */
+    .shake {
+      animation:shakeAnim 6s ease-in-out infinite;
+      transform-origin:center;
+    }
+    @keyframes shakeAnim{
+      0%,80%{ transform:translateY(0); }
+      83%{ transform:translateY(-4px) rotate(-1deg); }
+      86%{ transform:translateY(0) rotate(1deg); }
+    }
+
+    /* ================= BUTTONS ================= */
+    .btn {
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 18px; border-radius:12px; cursor:pointer; user-select:none; border:0;
+      font-weight:700; font-size:15px; position:relative; overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 8px 24px rgba(6,30,80,0.08);
+    }
+    .btn:active{ transform:scale(.98); }
+    .btn-primary{ background: linear-gradient(90deg,var(--accent-2), var(--accent)); color:white; }
+    .btn-ghost{ background:transparent; color:var(--accent); border:1px solid rgba(2,34,68,0.06); }
+
+    /* glowing hover */
+    .btn-primary:hover{ box-shadow: 0 14px 40px rgba(74,170,255,0.2); transform:translateY(-3px) scale(1.02); }
+
+    /* ripple effect */
+    .ripple{
+      position:absolute; border-radius:50%; transform:scale(0); opacity:0.7; pointer-events:none;
+      animation:rippleAnim .6s linear;
+      background: rgba(255,255,255,0.45);
+    }
+    @keyframes rippleAnim{ to{ transform:scale(8); opacity:0; } }
+
+    /* ================= GRID & LAYOUT ================= */
+    .flex{ display:flex; gap:18px; flex-wrap:wrap; }
+    .login-box{ flex:1; min-width:280px; text-align:center; }
+    .grid-img{ flex:2; min-width:300px; display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    .grid-img img{ width:100%; border-radius:14px; transition: transform .3s; cursor:pointer; }
+    .grid-img img:hover{ transform:scale(1.04) translateY(-6px); box-shadow:0 18px 40px rgba(8,20,40,0.08); }
+
+    /* ================= PROMO BOX ================= */
+    #promoBox{
+      position:fixed; right:22px; bottom:22px; width:300px; z-index:99999;
+      border-radius:14px; padding:18px; background:linear-gradient(180deg, rgba(255,255,255,0.98), #fff);
+      box-shadow: 0 22px 50px rgba(8,18,40,0.12); transform-origin:center;
+      animation:promoIn .9s cubic-bezier(.2,.9,.3,1) 1 forwards;
+      opacity:0; transform:translateY(16px) scale(.98);
+    }
+    @keyframes promoIn{ to{ opacity:1; transform:translateY(0) scale(1); } }
+    #promoBox.bounce{ animation:promoBounce 1.2s ease-in-out 1; }
+    @keyframes promoBounce{
+      0%{ transform:translateY(0); }
+      30%{ transform:translateY(-10px); }
+      60%{ transform:translateY(0); }
+      100%{ transform:translateY(0); }
+    }
+
+    /* ================= ABOUT & CONTACT ================= */
+    .contact-buttons{ display:flex; flex-direction:column; gap:10px; margin-top:6px; }
+    .contact-buttons .btn{ width:100%; justify-content:center; padding:12px; font-weight:700; border-radius:12px; }
+
+    /* ================= HOURS BOX ================= */
+    .hours p{ margin:8px 0; font-weight:600; color:#073058; text-align:center; }
+
+    /* ================= MAP ================= */
+    .map-wrapper{ transition: transform .45s cubic-bezier(.2,.9,.3,1); border-radius:14px; overflow:hidden; }
+    .map-wrapper:hover{ transform: perspective(900px) rotateX(3deg) rotateY(-2deg) translateY(-6px); box-shadow:0 34px 80px rgba(0,0,0,0.12); }
+
+    /* ================= FOOTER ================= */
+    footer{ margin-top:60px; padding:22px; text-align:center; color:#021428; font-weight:600; border-radius:14px; }
+
+    /* ================= FADE-UP ON SCROLL helper ================= */
+    .reveal{ opacity:0; transform:translateY(24px); transition: all .7s cubic-bezier(.2,.9,.3,1); will-change:transform,opacity; }
+    .reveal.visible{ opacity:1; transform:translateY(0); }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width:900px){
+      .grid-img{ grid-template-columns:1fr 1fr; }
+      .hero{ padding:20px; }
+      nav ul{ display:none; }
+    }
+    @media (max-width:520px){
+      .hero h1{ font-size:24px; }
+      .container{ padding-top:90px; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- FOOD EMOJI LAYER (ke belakang) -->
+  <div id="foodLayer" aria-hidden="true"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-wrap">
+      <div class="circle" role="img" aria-label="Loading"></div>
+      <div class="loader-text">Mencari menu favoritmu...</div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="brand">
+      <img src="logoikon.png" alt="logo kedai gaje" onerror="this.style.display='none'">
+      <div style="line-height:1;">Kedai Gaje</div>
+    </div>
+
+    <ul>
+      <li><a href="#">🏠Home</a></li>
+      <li><a href="#why">📜About Us</a></li>
+      <li><a href="login.php">👩🏻‍💻 Admin</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="card hero reveal" id="heroCard">
+      <div class="hero-left">
+        <h1>
+          Selamat Datang di <span class="accent">Kedai Gaje</span> <span aria-hidden="true">🍽️</span>
+        </h1>
+        <p>
+          <span class="typing" id="typingText">Tempat nyaman untuk menikmati makanan rumahan...</span>
+        </p>
+
+        <div class="hero-cta">
+          <button class="btn btn-primary shake" id="orderNowBtn" onclick="location.href='index.php'">Pesan Sekarang ✨</button>
+          <button class="btn btn-ghost" id="scrollAboutBtn" onclick="scrollToAbout()">Kenapa Pilih Kami?</button>
+        </div>
+
+        <div style="margin-top:18px; display:flex; gap:10px; align-items:center;">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div style="width:44px; height:44px; border-radius:10px; background:linear-gradient(180deg,#fff, #f0f8ff); display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px rgba(6,20,60,0.06); font-weight:700;">⭐</div>
+            <div>
+              <div style="font-weight:800;">Rating 4.8</div>
+              <div style="font-size:13px; opacity:0.8;">(Berdasarkan ulasan pelanggan)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <img src="kedai.jpg" alt="kedai" loading="lazy">
+      </div>
+    </div>
+
+    <!-- WHY / ABOUT -->
+    <div class="card reveal" id="why" style="margin-top:22px;">
+      <h2 style="margin-bottom:12px;">About Us</h2>
+      <div class="flex" style="align-items:flex-start;">
+        <!-- CONTACT BOX -->
+        <div class="card contact-card reveal" style="flex:0.9; min-width:230px;">
+          <h3 style="text-align:center; margin-bottom:8px;">☎️ Kontak</h3>
+          <hr style="margin:8px 0;">
+          <div class="contact-buttons">
+            <a href="https://wa.me/6282352456224" target="_blank" rel="noopener">
+              <button class="btn btn-primary ripple-target">✆ Whatsapp</button>
+            </a>
+            <a href="https://t.me/username_kamu" target="_blank" rel="noopener">
+              <button class="btn btn-primary ripple-target">⌯ Telegram</button>
+            </a>
+            <a href="https://instagram.com/kedaigaje" target="_blank" rel="noopener">
+              <button class="btn btn-primary ripple-target">🅾 Instagram</button>
+            </a>
+
+            <button class="btn btn-ghost" id="openMapBtn">⟟ Lihat di Maps</button>
+          </div>
+        </div>
+
+        <!-- LONG DESCRIPTION -->
+        <div class="card reveal" style="flex:1.6; min-width:320px;">
+          <h3 style="text-align:center; margin-bottom:8px;">✦•┈๑⋅⋯ Tentang Kedai Gaje ⋯⋅๑┈•✦</h3>
+          <hr style="margin:10px 0;">
+          <p style="font-size:15px; line-height:1.7; text-align:justify;">
+            Kedai Gaje “ga jelas” adalah kedai makanan dan minuman yang menyajikan hidangan lezat dengan harga yang tetap bersahabat.
+            Kami menawarkan berbagai menu rumahan, makanan cepat saji, dan minuman segar yang dibuat setiap hari.
+            Dengan suasana sederhana namun nyaman, Kedai Gaje cocok untuk makan santai, kumpul dengan teman, atau sekadar menikmati minuman favorit Anda ❤️
+          </p>
+        </div>
+
+        <!-- HOURS -->
+        <div class="card reveal hours" style="flex:1; min-width:240px; text-align:center;">
+          <h3 style="margin-bottom:6px;">⏰ Jam Operasional</h3>
+          <hr style="margin:8px 0;">
+          <p>SENIN ➠ 10.00-22.00</p>
+          <p>SELASA ➠ 10.00-17.00</p>
+          <p>RABU ➠ 17.00-22.00</p>
+          <p>KAMIS ➠ 10.00-22.00</p>
+          <p>JUMAT ➠ 10.00-22.00</p>
+          <p>SABTU ➠ 10.00-22.00</p>
+          <p>MINGGU ➠ 10.00-22.00</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAP -->
+    <div class="card reveal" style="margin-top:18px;" id="lokasi">
+      <h3 style="text-align:center; margin-bottom:8px;">📍Lokasi Kami</h3>
+      <hr style="margin:8px 0;">
+      <div class="map-wrapper" style="border-radius:14px; overflow:hidden;">
+        <iframe
+          width="100%" height="350" loading="lazy" allowfullscreen
+          src="https://www.google.com/maps?q=KEDAI%20GAJE%20rt03%20Persemaian%20Jl.%20Aki%20Balak%20Karang%20Harapan%20Tarakan&output=embed"
+          style="border:0;"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROMO BOX -->
+  <div id="promoBox" role="dialog" aria-label="Promo">
+    <h3 style="margin-bottom:6px;">Promo Spesial Hari Ini!</h3>
+    <p style="opacity:0.9;">Beli 2 menu, Geratis 1 Es Teh! 💙</p>
+    <button class="btn btn-primary" id="closePromoBtn">Tutup</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    Kedai Gaje © 2025
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    /***********************
+     * 1) FOOD EMOJI RAIN  *
+     ***********************/
+    (function createFoodRain(){
+      const food_list = [
+        "🍔","🍟","🍕","🌭","🍗","🍖","🥪","🍝","🍜","🍛",
+        "🍱","🍣","🍤","🥟","🍘","🍥","🥠","🍙","🍚","🍘",
+        "🍧","🍨","🍦","🧁","🍰","🎂","🍩","🍪","🍫","🍿",
+        "🧃","🥛","☕","🍵","🥤","🍹","🍸","🍺","🍻","🧋",
+        "🥨","🧀","🥐","🥯","🥞","🧇","🍞","🥖","🥗","🥘",
+        "🍲","🍔","🍟","🍕","🍤","🌮","🌯","🍗","🍛","🍣"
+      ];
+      const layer = document.getElementById('foodLayer');
+      // create many emojis but keep performance
+      const count = 30;
+      for(let i=0;i<count;i++){
+        const emoji = food_list[Math.floor(Math.random()*food_list.length)];
+        const el = document.createElement('div');
+        el.className = 'food';
+        el.textContent = emoji;
+        el.style.left = (Math.random()*96) + '%';
+        el.style.animationDuration = (10 + Math.random()*20) + 's';
+        el.style.animationDelay = (Math.random()*15) + 's';
+        el.style.fontSize = (20 + Math.random()*30) + 'px';
+        el.style.opacity = (0.6 + Math.random()*0.45);
+        el.style.transform = `rotate(${Math.random()*360}deg)`;
+        layer.appendChild(el);
+        // remove after animation end to keep DOM small
+        setTimeout(()=>{ try{ layer.removeChild(el); }catch(e){} }, (40 + Math.random()*40)*1000);
+      }
+      // periodically add a few more for continuous effect
+      setInterval(()=>{
+        const emoji = food_list[Math.floor(Math.random()*food_list.length)];
+        const el = document.createElement('div');
+        el.className = 'food';
+        el.textContent = emoji;
+        el.style.left = (Math.random()*96) + '%';
+        el.style.animationDuration = (10 + Math.random()*20) + 's';
+        el.style.animationDelay = '0s';
+        el.style.fontSize = (20 + Math.random()*30) + 'px';
+        el.style.opacity = (0.6 + Math.random()*0.45);
+        layer.appendChild(el);
+        setTimeout(()=>{ try{ layer.removeChild(el); }catch(e){} }, 35000);
+      }, 6000);
+    })();
+
+    /***********************
+     * 2) LOADER HIDE      *
+     ***********************/
+    window.addEventListener('load', () => {
+      const ld = document.getElementById('loader');
+      // hide loader smoothly
+      setTimeout(()=> ld.classList.add('hidden'), 700);
+    });
+
+    /***********************
+     * 3) TYPING EFFECT     *
+     ***********************/
+    (function typing(){
+      const texts = [
+        "Tempat nyaman untuk menikmati makanan rumahan...",
+        "Minuman segar, rasa mantap, harga bersahabat.",
+        "Pesan sekarang — nikmati promo spesial hari ini!"
+      ];
+      const el = document.getElementById('typingText');
+      let i = 0, j = 0, rev=false;
+      function step(){
+        const txt = texts[i];
+        if(!rev){
+          el.textContent = txt.slice(0, j+1);
+          j++;
+          if(j>=txt.length){ rev=true; setTimeout(step, 1500); return; }
+        } else {
+          el.textContent = txt.slice(0, j-1);
+          j--;
+          if(j<=0){ rev=false; i=(i+1)%texts.length; setTimeout(step, 300); return; }
+        }
+        setTimeout(step, 60 + Math.random()*40);
+      }
+      step();
+    })();
+
+    /***********************
+     * 4) FADE-UP ON SCROLL *
+     ***********************/
+    (function revealOnScroll(){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{
+          if(ent.isIntersecting) ent.target.classList.add('visible');
+        });
+      },{ threshold:0.12 });
+      document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    })();
+
+    /***********************
+     * 5) RIPPLE EFFECT     *
+     ***********************/
+    (function rippleSetup(){
+      function makeRipple(e){
+        const btn = e.currentTarget;
+        const rect = btn.getBoundingClientRect();
+        const circle = document.createElement('span');
+        circle.className = 'ripple';
+        const d = Math.max(rect.width, rect.height);
+        circle.style.width = circle.style.height = d + 'px';
+        circle.style.left = (e.clientX - rect.left - d/2) + 'px';
+        circle.style.top = (e.clientY - rect.top - d/2) + 'px';
+        btn.appendChild(circle);
+        setTimeout(()=> circle.remove(), 700);
+      }
+      document.querySelectorAll('.ripple-target, .btn').forEach(b=>{
+        b.addEventListener('click', makeRipple);
+      });
+    })();
+
+    /***********************
+     * 6) PROMO BOX BEHAVIOR*
+     ***********************/
+    (function promo(){
+      const promo = document.getElementById('promoBox');
+      // small bounce every 8s to attract attention
+      setInterval(()=>{ promo.classList.add('bounce'); setTimeout(()=>promo.classList.remove('bounce'),1200); }, 8000);
+
+      document.getElementById('closePromoBtn').addEventListener('click', ()=>{
+        promo.style.display='none';
+      });
+    })();
+
+    /***********************
+     * 7) MAP BUTTON OPEN   *
+     ***********************/
+    document.getElementById('openMapBtn').addEventListener('click', ()=>{
+      document.getElementById('lokasi').scrollIntoView({behavior:'smooth'});
+      // slightly highlight map
+      const mp = document.querySelector('.map-wrapper');
+      mp.style.boxShadow = '0 38px 100px rgba(10,30,80,0.18)';
+      setTimeout(()=> mp.style.boxShadow='', 1800);
+    });
+
+    /***********************
+     * 8) OPENING ANIM AUTO *
+     ***********************/
+    // make hero card appear slightly after load
+    window.addEventListener('load', ()=> {
+      setTimeout(()=> document.getElementById('heroCard').classList.add('visible'), 350);
+    });
+
+    /***********************
+     * 9) SCROLL TO ABOUT   *
+     ***********************/
+    function scrollToAbout(){ document.getElementById('why').scrollIntoView({behavior:'smooth'}); }
+    window.scrollToAbout = scrollToAbout; // expose for inline onclick
+
+    /***********************
+     * 10) ACCESSIBILITY    *
+     ***********************/
+    // close promo with Esc
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ const p=document.getElementById('promoBox'); if(p) p.style.display='none'; } });
+
+    /***********************
+     * Extra: keep buttons keyboard-friendly
+     ***********************/
+    document.querySelectorAll('button').forEach(b=>{
+      b.addEventListener('keydown', (ev)=>{
+        if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); b.click(); }
+      });
+    });
+  </script>
+</body>
+</html>
